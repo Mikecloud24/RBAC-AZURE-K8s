@@ -1,0 +1,21 @@
+# pod-restart.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pod-restart-only
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pod-restart-binding
+subjects:
+- kind: User
+  name: ops-user@example.com
+roleRef:
+  kind: ClusterRole
+  name: pod-restart-only
+  apiGroup: rbac.authorization.k8s.io

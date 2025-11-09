@@ -1,0 +1,26 @@
+# dev-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: dev
+  name: dev-developer
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["create", "update", "delete", "get", "list"]
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["create", "update", "delete", "get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dev-developer-binding
+  namespace: dev
+subjects:
+- kind: User
+  name: michael@example.com
+roleRef:
+  kind: Role
+  name: dev-developer
+  apiGroup: rbac.authorization.k8s.io

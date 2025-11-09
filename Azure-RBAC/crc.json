@@ -1,0 +1,12 @@
+{
+  "Name": "VM Restart Operator",
+  "IsCustom": true,
+  "Description": "Can restart VMs only",
+  "Actions": [
+    "Microsoft.Compute/virtualMachines/restart/action"
+  ],
+  "NotActions": [],
+  "AssignableScopes": [
+    "/subscriptions/<sub-id>"
+  ]
+}
