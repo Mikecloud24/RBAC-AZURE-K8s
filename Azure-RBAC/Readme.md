@@ -7,6 +7,13 @@ Below are some real-world examples both at Portal and CLI (Bash):
 
 - Use case: A developer needs full access to deploy resources in a specific resource group, command
 
+```bash
+az role assignment create \
+  --assignee <user-email> \
+  --role "Contributor" \
+  --scope /subscriptions/<sub-id>/resourceGroups/<rg-name>
+```
+
 - az role assignment create --assignee user-email --role "Contributor" --scope /subscriptions/sub-id/resourceGroups/rg-name
 
 - Portal: Go to the resource group → Access Control (IAM) → Add role assignment → Select "Contributor" → Assign user.
@@ -14,7 +21,14 @@ Below are some real-world examples both at Portal and CLI (Bash):
 
 # Restrict Access to Read-Only for Auditors
 
-- Use Case: Auditors should view resources but not modify them, command 
+- Use Case: Auditors should view resources but not modify them, command
+
+```bash
+az role assignment create \
+  --assignee <auditor-email> \
+  --role "Reader" \
+  --scope /subscriptions/<sub-id>
+```
 
 - az role assignment create --assignee auditor-email --role "Reader" --scope /subscriptions/sub-id
 
@@ -34,6 +48,13 @@ Below are some real-world examples both at Portal and CLI (Bash):
 
 - Use Case: A web app needs to read secrets from Azure Key Vault, commad
 
+```bash
+az role assignment create \
+  --assignee <app-object-id> \
+  --role "Key Vault Reader" \
+  --scope /subscriptions/<sub-id>/resourceGroups/<rg-name>/providers/Microsoft.KeyVault/vaults/<vault-name>
+```
+
 - az role assignment create --assignee app-object-id --role "Key Vault Reader" --scope /subscriptions/sub-id/resourceGroups/rg-name/providers/Microsoft.KeyVault/vaults/vault-name
 
 - Portal: Key Vault → Access Control (IAM) → Add role assignment → Select "Key Vault Reader" → Assign app.
@@ -42,6 +63,13 @@ Below are some real-world examples both at Portal and CLI (Bash):
 # Grant Storage Blob Access to Data Analyst
 
 - Use Case: Analyst needs access to read blob data only.
+
+```bash
+az role assignment create \
+  --assignee <analyst-email> \
+  --role "Storage Blob Data Reader" \
+  --scope /subscriptions/<sub-id>/resourceGroups/<rg-name>/providers/Microsoft.Storage/storageAccounts/<storage-name>
+```
 
 - az role assignment create --assignee analyst-email --role "Storage Blob Data Reader" --scope /subscriptions/sub-id/resourceGroups/rg-name/providers/Microsoft.Storage/storageAccounts/storage-name
 
@@ -52,6 +80,13 @@ Below are some real-world examples both at Portal and CLI (Bash):
 
 - Use Case: Assign access to a group instead of individuals.
 
+```bash
+az role assignment create \
+  --assignee-object-id <group-object-id> \
+  --role "Contributor" \
+  --scope /subscriptions/<sub-id>/resourceGroups/<rg-name>
+```
+
 - az role assignment create --assignee-object-id group-object-id --role "Contributor" --scope /subscriptions/sub-id/resourceGroups/rg-name
 
 - Portal: Resource Group → Access Control (IAM) → Add role assignment → Assign to Azure AD group.
@@ -61,7 +96,9 @@ Below are some real-world examples both at Portal and CLI (Bash):
 
 - Use Case: Check what access a user has on a VM.
 
-- az role assignment list --assignee user-email --scope /subscriptions/sub-id/resourceGroups/rg-name/providers/Microsoft.Compute/virtualMachines/vm-name
+```bash
+az role assignment list --assignee <user-email> --scope /subscriptions/<sub-id>/resourceGroups/<rg-name>/providers/Microsoft.Compute/virtualMachines/<vm-name>
+```
 
 - Portal: VM → Access Control (IAM) → Check Access → Enter user name → View roles.
 
@@ -69,6 +106,13 @@ Below are some real-world examples both at Portal and CLI (Bash):
 # Remove Excess Permissions
 
 - Use Case: Revoke unnecessary access from a user.
+
+```bash
+az role assignment delete \
+  --assignee <user-email> \
+  --role "Contributor" \
+  --scope /subscriptions/<sub-id>/resourceGroups/<rg-name>
+```
 
 - az role assignment delete --assignee user-email --role "Contributor" --scope /subscriptions/sub-id/resourceGroups/rg-name
 
@@ -79,6 +123,13 @@ Below are some real-world examples both at Portal and CLI (Bash):
 
 - Use Case: A function app needs access to a storage account.
 
+```bash
+az role assignment create \
+  --assignee <managed-identity-id> \
+  --role "Storage Account Contributor" \
+  --scope /subscriptions/<sub-id>/resourceGroups/<rg-name>/providers/Microsoft.Storage/storageAccounts/<storage-name>
+```
+
 - az role assignment create --assignee managed-identity-id --role "Storage Account Contributor" --scope /subscriptions/sub-id/resourceGroups/rg-name/providers/Microsoft.Storage/storageAccounts/storage-name
 
 - Portal: Storage Account → Access Control (IAM) → Add role assignment → Assign to managed identity.
@@ -87,6 +138,13 @@ Below are some real-world examples both at Portal and CLI (Bash):
 # Assign Role at Subscription Level
 
 - Use Case: Cloud architect needs full access across the subscription.
+
+```bash
+az role assignment create \
+  --assignee <architect-email> \
+  --role "Owner" \
+  --scope /subscriptions/<sub-id>
+```
 
 - az role assignment create --assignee architect-email --role "Owner" --scope /subscriptions/sub-id
 
